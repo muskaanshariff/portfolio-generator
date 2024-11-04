@@ -1,23 +1,30 @@
 # Title
+Title: Animated Portfolio Display for Artists
 
 ## Repository
-<Link to your project's public GitHub respository>
+https://github.com/muskaanshariff/portfolio-generator/tree/main
 
-## Description
-1-2 sentence description of what it will do and how it relevant to media and digital arts.
+Description:
+This project will create a animated portfolio display tool for digital artists. It allows users to upload artwork, which the tool will showcase using animated transitions and customizable layouts. This program will be useful for artists who want to present their work in an interactive and visually engaging format, aligning well with the needs of media and digital arts.
 
 ## Features
-- Feature 1
-	- Short explaination of how it will be executed.
-- Feature 2
-	- Short explaination of how it will be executed.
-- Feature N 
-	- Short explaination of how it will be executed.
+- Feature 1: Image Upload and Display
+	- Artists can upload images of their work, and the program will organize them into a display.
+- Feature 2: Animated Transitions
+	- Each piece will appear with smooth transitions, such as fades, slides, or other animations.
+- Feature 3: Custom Layouts
+	- Users can choose from different layouts (e.g., grid view, carousel view) to display their artwork.
+- Feature 4: Tagging and Filtering
+  - Users can add tags to their artwork (e.g., “illustration,” “3D art,” “photography”) and filter the display to view specific types.
+- Feature 5: Navigation Controls
+  - Simple buttons or keys to navigate between pieces of artwork in the display.
 
 ## Challenges
-- Short sentence of any skill or topic that needs to be learnt or researched.
-- Short sentence of any skill or topic that needs to be learnt or researched.
-- Short sentence of any skill or topic that needs to be learnt or researched.
+- Implementing smooth animations and transitions, which may require researching specific graphics libraries.
+- Managing file input/output to load, save, and organize uploaded images.
+- Designing a user-friendly and visually appealing interface.
+- Working with image processing for resizing, scaling, or optimizing images for display.
+- Implementing drag-and-drop upload or advanced filtering options.
 
 ## Outcomes
 Ideal Outcome:
