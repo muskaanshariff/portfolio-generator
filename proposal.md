@@ -4,7 +4,7 @@ Title: Animated Portfolio Display for Artists
 ## Repository
 https://github.com/muskaanshariff/portfolio-generator/tree/main
 
-Description:
+## Description:
 This project will create a animated portfolio display tool for digital artists. It allows users to upload artwork, which the tool will showcase using animated transitions and customizable layouts. This program will be useful for artists who want to present their work in an interactive and visually engaging format, aligning well with the needs of media and digital arts.
 
 ## Features
@@ -28,21 +28,26 @@ This project will create a animated portfolio display tool for digital artists. 
 
 ## Outcomes
 Ideal Outcome:
-- Briefly describe what is the ideal outcome?
+- A fully functional portfolio display tool with animated transitions, tagging/filtering, customizable layouts, and an intuitive interface.
 
 Minimal Viable Outcome:
-- Briefly describe the bare essential for a good working outcome?
+- A basic animated slideshow with simple navigation that displays uploaded images with fade or slide transitions.
 
 ## Milestones
 
 - Week 1
-  1. Goal 1
-  2. Goal 2
+  1. Set up the GitHub repository with a basic structure.
+  2. Develop the initial UI layout and interface for image upload.
+  3. Implement basic file I/O to load images and display them in a simple view.
 
 - Week 2
-  1. Goal 1
-  2. Goal 2
+  1. Add transition animations for switching between images.
+  2. Implement basic navigation controls for moving through the gallery.
 
-- Week N (Final)
-  1. Goal 1
-  2. Goal 2
+- Week 3
+  1. Add tagging and filtering functionality.
+  2. Allow users to choose between different layouts (e.g., grid or carousel).
+
+- Week 4 (Final)
+  1. Refine the user interface, add finishing touches to animations, and test for any bugs or issues.
+  2. Polish documentation and prepare the project for presentation.
