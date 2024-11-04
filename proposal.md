@@ -2,7 +2,7 @@
 Title: Animated Portfolio Display for Artists
 
 ## Repository
-https://github.com/muskaanshariff/portfolio-generator/tree/main
+https://github.com/muskaanshariff/portfolio-generator
 
 ## Description:
 This project will create a animated portfolio display tool for digital artists. It allows users to upload artwork, which the tool will showcase using animated transitions and customizable layouts. This program will be useful for artists who want to present their work in an interactive and visually engaging format, aligning well with the needs of media and digital arts.
