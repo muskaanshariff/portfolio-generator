@@ -10,3 +10,12 @@ def main():
     else:
         print("No images found. Please check the folder path and try again.")
 
+def load_images(directory):
+    images = []
+    try:
+        for filename in os.listdir(directory):
+            if filename.endswith((".png", ".jpg", ".jpeg")):
+                image_path = os.path.join(directory, filename)
+                images.append(Image.open(image_path))
+        return images
+    
