@@ -18,4 +18,9 @@ def load_images(directory):
                 image_path = os.path.join(directory, filename)
                 images.append(Image.open(image_path))
         return images
-    
+    except Exception as e:
+        print(f"Error loading images: {e}")
+        return []
+
+if __name__ == "__main__":
+    main()
