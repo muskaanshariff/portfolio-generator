@@ -12,9 +12,13 @@ def main():
 
 def load_images(directory):
     images = []
-    try:
-        for filename in os.listdir(directory):
-            if filename.endswith((".png", ".jpg", ".jpeg")):
+    if not os.path.isdir(directory):
+        print("Invalid directory. Please provide a valid folder path.")
+        return images
+
+    for filename in os.listdir(directory):
+        if filename.endswith((".png", ".jpg", ".jpeg")):
+            try:
                 image_path = os.path.join(directory, filename)
                 images.append(Image.open(image_path))
         return images
