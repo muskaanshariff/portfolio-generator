@@ -40,6 +40,7 @@ def main():
     images = load_images(folder_path)
     if images:
         print(f"{len(images)} images loaded successfully!")
+        animate_transition(images[0])
     else:
         print("No images found. Please check the folder path and try again.")
 
