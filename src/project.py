@@ -21,10 +21,11 @@ def load_images(directory):
             try:
                 image_path = os.path.join(directory, filename)
                 images.append(Image.open(image_path))
-        return images
-    except Exception as e:
-        print(f"Error loading images: {e}")
-        return []
+            except Exception as e:
+                print(f"Error loading {filename}: {e}")
+        else:
+            print(f"Skipped unsupported file: {filename}")
+    return images
 
 if __name__ == "__main__":
     main()
