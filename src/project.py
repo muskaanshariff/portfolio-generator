@@ -28,6 +28,25 @@ def animate_fade_out(screen, image):
         alpha -= 5
         pygame.time.delay(20)
 
+def display_grid(screen, images, captions):
+    screen.fill((0, 0, 0))
+    cols, rows = 3, 2
+    margin = 10
+    thumb_width = (800 - (cols + 1) * margin) // cols
+    thumb_height = (600 - (rows + 1) * margin) // rows
+    font = pygame.font.Font(None, 24)
+
+    for i, (image, caption) in enumerate(zip(images, captions)):
+        col = i % cols
+        row = i // cols
+        x = margin + col * (thumb_width + margin)
+        y = margin + row * (thumb_height + margin)
+        
+        image_surface = pygame.image.load(image.filename).convert()
+        image_surface = pygame.transform.scale(image_surface, (thumb_width, thumb_height))
+        
+        screen.blit(image_surface, (x, y))
+
 def animate_transition(images, captions):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
@@ -65,40 +84,7 @@ def animate_transition(images, captions):
 
     pygame.quit()
 
-def animate_slide(screen, image, caption, font):
-    screen_width, screen_height = screen.get_size()
-    image_surface = pygame.image.load(image.filename).convert()
-    image_surface = pygame.transform.scale(image_surface, (800, 500))
-    
-    x = -screen_width
-    while x < 0:
-        screen.fill((0, 0, 0))
-        screen.blit(image_surface, (x, 50)) 
-        x += 20
-        pygame.display.update()
-        pygame.time.delay(30)
 
-    caption_surface = font.render(caption, True, (255, 255, 255))
-    caption_rect = caption_surface.get_rect(center=(400, 550))
-    screen.blit(caption_surface, caption_rect)
-
-def display_grid(screen, images):
-    screen.fill((0, 0, 0))
-    cols = 3
-    rows = 2
-    margin = 10
-    thumb_width = (800 - (cols + 1) * margin) // cols
-    thumb_height = (600 - (rows + 1) * margin) // rows
-
-    for i, image in enumerate(images[:cols * rows]):
-        col = i % cols
-        row = i // cols
-        x = margin + col * (thumb_width + margin)
-        y = margin + row * (thumb_height + margin)
-        
-        image_surface = pygame.image.load(image.filename).convert()
-        image_surface = pygame.transform.scale(image_surface, (thumb_width, thumb_height))
-        fade_in_thumbnail(screen, image_surface, x, y)
 
 def load_images(directory):
     images = []
