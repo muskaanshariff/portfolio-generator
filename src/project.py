@@ -54,6 +54,15 @@ def display_grid(screen, images, captions):
         caption_surface = font.render(caption, True, (255, 255, 255))
         screen.blit(caption_surface, (x + 5, y + thumb_height - 25))
 
+def fit_image_to_screen(image_surface, screen_width, screen_height):
+    image_width, image_height = image_surface.get_size()
+    scale = min(screen_width / image_width, screen_height / image_height)
+    new_size = (int(image_width * scale), int(image_height * scale))
+    return pygame.transform.scale(image_surface, new_size)
+
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+
+
 def animate_transition(images, captions):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
