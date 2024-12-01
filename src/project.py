@@ -85,6 +85,15 @@ def display_grid(screen, images):
     thumb_width = (800 - (cols + 1) * margin) // cols
     thumb_height = (600 - (rows + 1) * margin) // rows
 
+    for i, image in enumerate(images[:cols * rows]):
+        col = i % cols
+        row = i // cols
+        x = margin + col * (thumb_width + margin)
+        y = margin + row * (thumb_height + margin)
+        
+        image_surface = pygame.image.load(image.filename).convert()
+        image_surface = pygame.transform.scale(image_surface, (thumb_width, thumb_height))
+
 def main():
     print("Welcome to the Animated Portfolio Generator!")
     folder_path = input("Enter the folder path where your images are stored: ")
