@@ -39,7 +39,12 @@ def animate_transition(images):
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False    
+                running = False
+                break
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    current_index = (current_index + 1) % len(images)  # Next image
+                    break    
 
     pygame.quit()
     
