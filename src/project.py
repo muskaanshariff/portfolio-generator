@@ -104,16 +104,6 @@ def fade_in_thumbnail(screen, image_surface, x, y):
         alpha += 10
         pygame.time.delay(20)
 
-def main():
-    print("Welcome to the Animated Portfolio Generator!")
-    folder_path = input("Enter the folder path where your images are stored: ")
-    images = load_images(folder_path)
-    if images:
-        print(f"{len(images)} images loaded successfully!")
-        animate_transition(images[0])
-    else:
-        print("No images found. Please check the folder path and try again.")
-
 def load_images(directory):
     images = []
     if not os.path.isdir(directory):
@@ -130,6 +120,16 @@ def load_images(directory):
         else:
             print(f"Skipped unsupported file: {filename}")
     return images
+
+def main():
+    print("Welcome to the Animated Portfolio Generator!")
+    folder_path = input("Enter the folder path where your images are stored: ")
+    images = load_images(folder_path)
+    if images:
+        print(f"{len(images)} images loaded successfully!")
+        animate_transition(images[0])
+    else:
+        print("No images found. Please check the folder path and try again.")
 
 if __name__ == "__main__":
     main()
