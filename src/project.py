@@ -1,5 +1,19 @@
 import os
 from PIL import Image
+import pygame
+
+def display_image(image):
+    try:
+        image.show() 
+    except Exception as e:
+        print(f"Error displaying image: {e}")
+
+def animate_transition(image):
+    pygame.init()
+    screen = pygame.display.set_mode((800, 600))
+    pygame.display.set_caption("Portfolio Animation")
+    clock = pygame.time.Clock()
+    
 
 def main():
     print("Welcome to the Animated Portfolio Generator!")
@@ -26,13 +40,6 @@ def load_images(directory):
         else:
             print(f"Skipped unsupported file: {filename}")
     return images
-
-def display_image(image):
-    try:
-        image.show() 
-    except Exception as e:
-        print(f"Error displaying image: {e}")
-
 
 if __name__ == "__main__":
     main()
