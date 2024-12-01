@@ -8,7 +8,7 @@ def display_image(image):
     except Exception as e:
         print(f"Error displaying image: {e}")
 
-def animate_transition(image):
+def animate_transition(images):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("Portfolio Animation")
