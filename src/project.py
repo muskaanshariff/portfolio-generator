@@ -91,6 +91,20 @@ def animate_transition(screen, images, captions):
             elif event.type == pygame.MOUSEBUTTONDOWN and grid_mode:
                 mouse_x, mouse_y = event.pos
                 
+                cols, rows = 3, 2
+                margin = 10
+                thumb_width = (800 - (cols + 1) * margin) // cols
+                thumb_height = (600 - (rows + 1) * margin) // rows
+                
+                for i, image in enumerate(images):
+                    col = i % cols
+                    row = i // cols
+                    x = margin + col * (thumb_width + margin)
+                    y = margin + row * (thumb_height + margin)
+                    if x <= mouse_x <= x + thumb_width and y <= mouse_y <= y + thumb_height:
+                        current_index = i
+                        grid_mode = False
+                        break
 
         pygame.display.update()
     pygame.quit()
