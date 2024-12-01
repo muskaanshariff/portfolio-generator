@@ -54,7 +54,7 @@ def display_grid(screen, images, captions):
         caption_surface = font.render(caption, True, (255, 255, 255))
         screen.blit(caption_surface, (x + 5, y + thumb_height - 25))
 
-def animate_transition(screen, images, captions):
+def animate_transition(images, captions):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("Portfolio Animation")
@@ -62,15 +62,25 @@ def animate_transition(screen, images, captions):
     
     current_index = 0
     grid_mode = True
+    fade_in_done = False
     running = True
 
     while running:
         if grid_mode:
             display_grid(screen, images, captions)
+            fade_in_done = False
         else:
-            animate_fade_in(screen, images[current_index])
-            caption_surface = font.render(captions[current_index], True, (255, 255, 255))
-            screen.blit(caption_surface, (20, 550))
+            if not fade_in_done:
+                animate_fade_in(screen, images[current_index])
+                fade_in_done = True
+            else:
+                image_surface = pygame.image.load(images[current_index].filename).convert()
+                image_surface = pygame.transform.scale(image_surface, (800, 500))
+                screen.fill((0, 0, 0))
+                screen.blit(image_surface, (0, 50))
+                
+                caption_surface = font.render(captions[current_index], True, (255, 255, 255))
+                screen.blit(caption_surface, (20, 550))
 
         pygame.display.update()
 
@@ -79,13 +89,15 @@ def animate_transition(screen, images, captions):
                 running = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_g:
-                    grid_mode = not grid_mode
+                    grid_mode = True
                 elif event.key == pygame.K_RIGHT and not grid_mode:
                     animate_fade_out(screen, images[current_index])
                     current_index = (current_index + 1) % len(images)
+                    fade_in_done = False  
                 elif event.key == pygame.K_LEFT and not grid_mode:
                     animate_fade_out(screen, images[current_index])
                     current_index = (current_index - 1) % len(images)
+                    fade_in_done = False  
                 elif event.key == pygame.K_ESCAPE:
                     running = False
             elif event.type == pygame.MOUSEBUTTONDOWN and grid_mode:
@@ -104,6 +116,7 @@ def animate_transition(screen, images, captions):
                     if x <= mouse_x <= x + thumb_width and y <= mouse_y <= y + thumb_height:
                         current_index = i
                         grid_mode = False
+                        fade_in_done = False
                         break
 
         pygame.display.update()
