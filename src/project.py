@@ -1,6 +1,7 @@
 import os
 from PIL import Image
 import pygame
+import time
 
 def display_image(image):
     try:
@@ -8,55 +9,42 @@ def display_image(image):
     except Exception as e:
         print(f"Error displaying image: {e}")
 
-def animate_transition(images):
+def animate_transition(images, captions):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("Portfolio Animation")
 
+    font = pygame.font.Font(None, 36)
     clock = pygame.time.Clock()
+    
     current_index = 0
     running = True
+    grid_mode = False
 
     while running:
-        image = images[current_index]
-        image_surface = pygame.image.load(image.filename).convert()
-        image_surface = pygame.transform.scale(image_surface, (800, 600))
+        if grid_mode:
+            display_grid(screen, images)
+        else:
+            image = images[current_index]
+            animate_slide(screen, image, captions[current_index], font)
 
-
-    alpha = 0
-    while alpha < 255:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
-        screen.fill((0, 0, 0))
-        image_surface.set_alpha(alpha)
-        screen.blit(image_surface, (0, 0))
-        pygame.display.update()
-        alpha += 5
-        clock.tick(30)
-
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-                break
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    current_index = (current_index + 1) % len(images)  # Next image
-                    break
+                    current_index = (current_index + 1) % len(images)
                 elif event.key == pygame.K_LEFT:
-                    current_index = (current_index - 1) % len(images)  # Previous image
-                    break
+                    current_index = (current_index - 1) % len(images)
+                elif event.key == pygame.K_g:
+                    grid_mode = not grid_mode
                 elif event.key == pygame.K_ESCAPE:
                     running = False
-                    break
-        else:
-            continue
-        break    
+
+        pygame.display.update()
+        clock.tick(30)
 
     pygame.quit()
-    
 
 def main():
     print("Welcome to the Animated Portfolio Generator!")
