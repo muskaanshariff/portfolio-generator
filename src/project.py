@@ -27,5 +27,8 @@ def load_images(directory):
             print(f"Skipped unsupported file: {filename}")
     return images
 
+
+
+
 if __name__ == "__main__":
     main()
