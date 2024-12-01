@@ -47,6 +47,10 @@ def display_grid(screen, images, captions):
         
         screen.blit(image_surface, (x, y))
 
+        overlay = pygame.Surface((thumb_width, 30), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 150))
+        screen.blit(overlay, (x, y + thumb_height - 30))
+
 def animate_transition(images, captions):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
