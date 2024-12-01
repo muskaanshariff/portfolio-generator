@@ -15,6 +15,19 @@ def animate_fade_in(screen, image):
         alpha += 5
         pygame.time.delay(20)
 
+def animate_fade_out(screen, image):
+    image_surface = pygame.image.load(image.filename).convert()
+    image_surface = pygame.transform.scale(image_surface, (800, 500))
+    
+    alpha = 255
+    while alpha > 0:
+        image_surface.set_alpha(alpha)
+        screen.fill((0, 0, 0))
+        screen.blit(image_surface, (0, 50))
+        pygame.display.update()
+        alpha -= 5
+        pygame.time.delay(20)
+
 def animate_transition(images, captions):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
@@ -86,16 +99,6 @@ def display_grid(screen, images):
         image_surface = pygame.image.load(image.filename).convert()
         image_surface = pygame.transform.scale(image_surface, (thumb_width, thumb_height))
         fade_in_thumbnail(screen, image_surface, x, y)
-
-def fade_in_thumbnail(screen, image_surface, x, y):
-    alpha = 0
-    while alpha < 255:
-        temp_surface = image_surface.copy()
-        temp_surface.set_alpha(alpha)
-        screen.blit(temp_surface, (x, y))
-        pygame.display.update()
-        alpha += 10
-        pygame.time.delay(20)
 
 def load_images(directory):
     images = []
