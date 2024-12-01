@@ -106,6 +106,7 @@ def fade_in_thumbnail(screen, image_surface, x, y):
 
 def load_images(directory):
     images = []
+    captions = []
     if not os.path.isdir(directory):
         print("Invalid directory. Please provide a valid folder path.")
         return images
@@ -115,6 +116,7 @@ def load_images(directory):
             try:
                 image_path = os.path.join(directory, filename)
                 images.append(Image.open(image_path))
+                captions.append(f"Title: {os.path.splitext(filename)[0]}")
             except Exception as e:
                 print(f"Error loading {filename}: {e}")
         else:
