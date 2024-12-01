@@ -77,7 +77,6 @@ def fade_in(screen, image):
         pygame.time.delay(30)
 
 def display_grid(screen, images):
-    """Grid view with fade-in animation for each thumbnail."""
     screen.fill((0, 0, 0))
     cols = 3
     rows = 2
@@ -93,6 +92,17 @@ def display_grid(screen, images):
         
         image_surface = pygame.image.load(image.filename).convert()
         image_surface = pygame.transform.scale(image_surface, (thumb_width, thumb_height))
+        fade_in_thumbnail(screen, image_surface, x, y)
+
+def fade_in_thumbnail(screen, image_surface, x, y):
+    alpha = 0
+    while alpha < 255:
+        temp_surface = image_surface.copy()
+        temp_surface.set_alpha(alpha)
+        screen.blit(temp_surface, (x, y))
+        pygame.display.update()
+        alpha += 10
+        pygame.time.delay(20)
 
 def main():
     print("Welcome to the Animated Portfolio Generator!")
