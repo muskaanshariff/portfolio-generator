@@ -12,13 +12,18 @@ def animate_transition(image):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("Portfolio Animation")
-    clock = pygame.time.Clock()
 
+    clock = pygame.time.Clock()
     image_surface = pygame.image.load(image.filename).convert()
     image_surface = pygame.transform.scale(image_surface, (800, 600))
 
     alpha = 0
-    while alpha < 255:
+    running = True
+    while running and alpha < 255:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        
         screen.fill((0, 0, 0))
         image_surface.set_alpha(alpha)
         screen.blit(image_surface, (0, 0))
