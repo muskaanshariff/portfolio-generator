@@ -28,6 +28,11 @@ def animate_fade_out(screen, image):
         alpha -= 5
         pygame.time.delay(20)
 
+def draw_centered_text(screen, text, font, y_position):
+    text_surface = font.render(text, True, (255, 255, 255))  # White text
+    text_rect = text_surface.get_rect(center=(screen.get_width() // 2, y_position))
+    screen.blit(text_surface, text_rect)
+
 def display_grid(screen, images, captions):
     screen.fill((0, 0, 0))
     cols, rows = 3, 2
