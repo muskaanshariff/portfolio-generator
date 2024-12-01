@@ -46,6 +46,19 @@ def animate_transition(images, captions):
 
     pygame.quit()
 
+def animate_slide(screen, image, caption, font):
+    screen_width, screen_height = screen.get_size()
+    image_surface = pygame.image.load(image.filename).convert()
+    image_surface = pygame.transform.scale(image_surface, (800, 500))
+    
+    x = -screen_width
+    while x < 0:
+        screen.fill((0, 0, 0))
+        screen.blit(image_surface, (x, 50)) 
+        x += 20
+        pygame.display.update()
+        pygame.time.delay(30)
+
 def main():
     print("Welcome to the Animated Portfolio Generator!")
     folder_path = input("Enter the folder path where your images are stored: ")
