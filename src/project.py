@@ -27,7 +27,11 @@ def load_images(directory):
             print(f"Skipped unsupported file: {filename}")
     return images
 
-
+def display_image(image):
+    try:
+        image.show() 
+    except Exception as e:
+        print(f"Error displaying image: {e}")
 
 
 if __name__ == "__main__":
