@@ -59,6 +59,11 @@ def animate_slide(screen, image, caption, font):
         pygame.display.update()
         pygame.time.delay(30)
 
+    caption_surface = font.render(caption, True, (255, 255, 255))
+    caption_rect = caption_surface.get_rect(center=(400, 550))
+    screen.blit(caption_surface, caption_rect)
+
+
 def main():
     print("Welcome to the Animated Portfolio Generator!")
     folder_path = input("Enter the folder path where your images are stored: ")
