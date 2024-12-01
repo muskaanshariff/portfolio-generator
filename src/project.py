@@ -126,7 +126,7 @@ def load_images(directory):
 def main():
     print("Welcome to the Animated Portfolio Generator!")
     folder_path = input("Enter the folder path where your images are stored: ")
-    images = load_images(folder_path)
+    images, captions = load_images_with_captions(folder_path)
     if images:
         print(f"{len(images)} images loaded successfully!")
         animate_transition(images[0])
