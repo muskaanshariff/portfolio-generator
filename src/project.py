@@ -1,7 +1,6 @@
 import os
 from PIL import Image
 import pygame
-import time
 
 def display_image(image):
     try:
@@ -109,7 +108,7 @@ def load_images(directory):
     captions = []
     if not os.path.isdir(directory):
         print("Invalid directory. Please provide a valid folder path.")
-        return images
+        return images, captions
 
     for filename in os.listdir(directory):
         if filename.endswith((".png", ".jpg", ".jpeg")):
@@ -121,15 +120,15 @@ def load_images(directory):
                 print(f"Error loading {filename}: {e}")
         else:
             print(f"Skipped unsupported file: {filename}")
-    return images
+    return images, captions
 
 def main():
     print("Welcome to the Animated Portfolio Generator!")
     folder_path = input("Enter the folder path where your images are stored: ")
-    images, captions = load_images_with_captions(folder_path)
+    images, captions = load_images(folder_path)
     if images:
         print(f"{len(images)} images loaded successfully!")
-        animate_transition(images[0])
+        animate_transition(images, captions)
     else:
         print("No images found. Please check the folder path and try again.")
 
