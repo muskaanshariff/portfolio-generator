@@ -63,6 +63,19 @@ def animate_slide(screen, image, caption, font):
     caption_rect = caption_surface.get_rect(center=(400, 550))
     screen.blit(caption_surface, caption_rect)
 
+def fade_in(screen, image):
+    image_surface = pygame.image.load(image.filename).convert()
+    image_surface = pygame.transform.scale(image_surface, (800, 500))
+    
+    alpha = 0
+    while alpha < 255:
+        image_surface.set_alpha(alpha)
+        screen.fill((0, 0, 0))
+        screen.blit(image_surface, (0, 50))
+        pygame.display.update()
+        alpha += 5
+        pygame.time.delay(30)
+
 
 def main():
     print("Welcome to the Animated Portfolio Generator!")
