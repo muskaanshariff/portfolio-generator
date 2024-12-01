@@ -54,43 +54,46 @@ def display_grid(screen, images, captions):
         caption_surface = font.render(caption, True, (255, 255, 255))
         screen.blit(caption_surface, (x + 5, y + thumb_height - 25))
 
-def animate_transition(images, captions):
+def animate_transition(screen, images, captions):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("Portfolio Animation")
-
     font = pygame.font.Font(None, 36)
-    clock = pygame.time.Clock()
     
     current_index = 0
+    grid_mode = True
     running = True
-    grid_mode = False
 
     while running:
         if grid_mode:
-            display_grid(screen, images)
+            display_grid(screen, images, captions)
         else:
-            image = images[current_index]
-            animate_slide(screen, image, captions[current_index], font)
+            animate_fade_in(screen, images[current_index])
+            caption_surface = font.render(captions[current_index], True, (255, 255, 255))
+            screen.blit(caption_surface, (20, 550))
+
+        pygame.display.update()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    current_index = (current_index + 1) % len(images)
-                elif event.key == pygame.K_LEFT:
-                    current_index = (current_index - 1) % len(images)
-                elif event.key == pygame.K_g:
+                if event.key == pygame.K_g:
                     grid_mode = not grid_mode
+                elif event.key == pygame.K_RIGHT and not grid_mode:
+                    animate_fade_out(screen, images[current_index])
+                    current_index = (current_index + 1) % len(images)
+                elif event.key == pygame.K_LEFT and not grid_mode:
+                    animate_fade_out(screen, images[current_index])
+                    current_index = (current_index - 1) % len(images)
                 elif event.key == pygame.K_ESCAPE:
                     running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN and grid_mode:
+                mouse_x, mouse_y = event.pos
+                
 
         pygame.display.update()
-        clock.tick(30)
-
     pygame.quit()
-
 
 
 def load_images(directory):
