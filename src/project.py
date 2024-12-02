@@ -40,6 +40,14 @@ def export_to_pdf(images):
     c.save()
     print("Exported portfolio as PDF!")
 
+def export_to_html(images):
+    with open("portfolio.html", "w") as f:
+        f.write("<html><body>\n")
+        for img in images:
+            f.write(f'<img src="{img.filename}" width="200"/><br>\n')
+        f.write("</body></html>")
+    print("Exported portfolio as HTML!")
+
 def animate_fade_in(screen, image):
     image_surface = pygame.image.load(image.filename).convert()
     image_surface = pygame.transform.scale(image_surface, (800, 500))
