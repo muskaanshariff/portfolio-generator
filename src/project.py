@@ -15,6 +15,10 @@ def load_settings():
             return json.load(f)
     else:
         return default_settings
+    
+def save_settings(settings):
+    with open("settings.json", "w") as f:
+        json.dump(settings, f)
 
 def animate_fade_in(screen, image):
     image_surface = pygame.image.load(image.filename).convert()
