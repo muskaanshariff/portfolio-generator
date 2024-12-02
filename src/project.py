@@ -73,7 +73,7 @@ def animate_transition(images, captions):
             fade_in_done = False
         else:
             if not fade_in_done:
-                animate_fade_in(screen, images[current_index], screen_width, screen_height)
+                animate_fade_in(screen, images[current_index])
                 fade_in_done = True
             else:
                 image_surface = pygame.image.load(images[current_index].filename).convert()
@@ -108,8 +108,8 @@ def animate_transition(images, captions):
                 
                 cols, rows = 3, 2
                 margin = 10
-                thumb_width = (800 - (cols + 1) * margin) // cols
-                thumb_height = (600 - (rows + 1) * margin) // rows
+                thumb_width = (screen_width - (cols + 1) * margin) // cols
+                thumb_height = (screen_height - (rows + 1) * margin) // rows
                 
                 for i, image in enumerate(images):
                     col = i % cols
