@@ -1,8 +1,10 @@
 import os
+import threading
 from PIL import Image
 import pygame
 import json
 from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 
 def load_settings():
     default_settings = {
@@ -20,30 +22,6 @@ def load_settings():
 def save_settings(settings):
     with open("settings.json", "w") as f:
         json.dump(settings, f)
-
-def load_theme(theme_name):
-    themes = {
-        "dark": {"background": (0, 0, 0), "text_color": (255, 255, 255)},
-        "light": {"background": (255, 255, 255), "text_color": (0, 0, 0)},
-        "minimal": {"background": (240, 240, 240), "text_color": (50, 50, 50)},
-        }
-    return themes.get(theme_name, themes["dark"])
-
-def export_to_pdf(images):
-    c = canvas.Canvas("portfolio.pdf")
-    for img in images:
-        c.drawImage(img.filename, 100, 500, width=400, height=300)
-        c.showPage()
-    c.save()
-    print("Exported portfolio as PDF!")
-
-def export_to_html(images):
-    with open("portfolio.html", "w") as f:
-        f.write("<html><body>\n")
-        for img in images:
-            f.write(f'<img src="{img.filename}" width="200"/><br>\n')
-        f.write("</body></html>")
-    print("Exported portfolio as HTML!")
 
 def animate_fade_in(screen, image):
     image_surface = pygame.image.load(image.filename).convert()
@@ -205,13 +183,57 @@ def load_images(directory):
             print(f"Skipped unsupported file: {filename}")
     return images, captions
 
+from reportlab.lib.pagesizes import letter
+
+def save_portfolio_as_pdf(images, captions):
+    c = canvas.Canvas("portfolio.pdf", pagesize=letter)
+    width, height = letter
+    
+    for i, (image, caption) in enumerate(zip(images, captions)):
+        img_width, img_height = image.size
+        aspect_ratio = img_width / img_height
+        
+        max_width = width - 100  
+        max_height = height - 150 
+
+        if aspect_ratio > 1: 
+            img_width = min(max_width, img_width)
+            img_height = img_width / aspect_ratio
+        else: 
+            img_height = min(max_height, img_height)
+            img_width = img_height * aspect_ratio
+
+        caption_x_position = (width - img_width) / 2
+        caption_y_position = (height - img_height) / 2 + img_height + 10  
+        
+        c.setFont("Helvetica-Bold", 14)
+        c.drawString(caption_x_position, caption_y_position, caption.upper())
+
+        x_position = (width - img_width) / 2
+        y_position = (height - img_height) / 2
+
+        c.drawImage(image.filename, x_position, y_position, width=img_width, height=img_height)
+        
+        c.showPage()
+    
+    c.save()
+    print("Portfolio saved as portfolio.pdf")
+
 def main():
     print("Welcome to the Animated Portfolio Generator!")
     folder_path = input("Enter the folder path where your images are stored: ")
     images, captions = load_images(folder_path)
     if images:
         print(f"{len(images)} images loaded successfully!")
-        animate_transition(images, captions)
+
+        animation_thread = threading.Thread(target=animate_transition, args=(images, captions))
+        animation_thread.start()
+
+        save_choice = input("Would you like to save this portfolio as a PDF? (y/n): ")
+        if save_choice.lower() == 'y':
+            save_portfolio_as_pdf(images, captions)
+
+        animation_thread.join()
     else:
         print("No images found. Please check the folder path and try again.")
 
