@@ -2,6 +2,7 @@ import os
 from PIL import Image
 import pygame
 import json
+from reportlab.pdfgen import canvas
 
 def load_settings():
     default_settings = {
