@@ -28,13 +28,13 @@ def animate_fade_out(screen, image):
         alpha -= 5
         pygame.time.delay(20)
 
-def display_grid(screen, images, captions):
+def display_grid(screen, images, captions, screen_width, screen_height):
     screen.fill((0, 0, 0))
     cols, rows = 3, 2
     margin = 10
-    thumb_width = (800 - (cols + 1) * margin) // cols
-    thumb_height = (600 - (rows + 1) * margin) // rows
-    font = pygame.font.Font("arial.ttf", 24)
+    thumb_width = (screen_width - (cols + 1) * margin) // cols
+    thumb_height = (screen_height - (rows + 1) * margin) // rows
+    font = pygame.font.SysFont("Arial", 24)
 
     for i, (image, caption) in enumerate(zip(images, captions)):
         col = i % cols
@@ -60,7 +60,7 @@ def animate_transition(images, captions):
     screen = pygame.display.set_mode((800, 600))
     screen_width, screen_height = screen.get_size()
     pygame.display.set_caption("Portfolio Animation")
-    font = pygame.font.Font("arial.ttf", 36)
+    font = pygame.font.SysFont("Arial", 36)
     
     current_index = 0
     grid_mode = True
@@ -128,6 +128,19 @@ def animate_transition(images, captions):
 def center_image(image_surface, screen_width, screen_height):
     image_rect = image_surface.get_rect(center=(screen_width // 2, screen_height // 2))
     return image_rect.topleft
+
+def scale_to_fit(image_surface, screen_width, screen_height):
+    image_width, image_height = image_surface.get_size()
+    aspect_ratio = image_width / image_height
+
+    if screen_width / screen_height > aspect_ratio:
+        new_height = screen_height
+        new_width = int(new_height * aspect_ratio)
+    else:
+        new_width = screen_width
+        new_height = int(new_width / aspect_ratio)
+
+    return pygame.transform.scale(image_surface, (new_width, new_height))
 
 def load_images(directory):
     images = []
