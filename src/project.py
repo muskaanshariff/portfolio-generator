@@ -57,8 +57,8 @@ def animate_fade_out(screen, image):
         pygame.time.delay(20)
 
 def display_grid(screen, images, captions, screen_width, screen_height, settings):
-    screen.fill((0, 0, 0))
-    cols, rows = 3, 2
+    screen.fill((settings['background_color']))
+    cols, rows = settings['grid_layout']
     margin = 10
     thumb_width = (screen_width - (cols + 1) * margin) // cols
     thumb_height = (screen_height - (rows + 1) * margin) // rows
