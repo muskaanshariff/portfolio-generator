@@ -28,18 +28,13 @@ def animate_fade_out(screen, image):
         alpha -= 5
         pygame.time.delay(20)
 
-def draw_centered_text(screen, text, font, y_position):
-    text_surface = font.render(text, True, (255, 255, 255))  # White text
-    text_rect = text_surface.get_rect(center=(screen.get_width() // 2, y_position))
-    screen.blit(text_surface, text_rect)
-
 def display_grid(screen, images, captions):
     screen.fill((0, 0, 0))
     cols, rows = 3, 2
     margin = 10
     thumb_width = (800 - (cols + 1) * margin) // cols
     thumb_height = (600 - (rows + 1) * margin) // rows
-    font = pygame.font.Font(None, 24)
+    font = pygame.font.Font("arial.ttf", 24)
 
     for i, (image, caption) in enumerate(zip(images, captions)):
         col = i % cols
@@ -57,22 +52,14 @@ def display_grid(screen, images, captions):
         screen.blit(overlay, (x, y + thumb_height - 30))
 
         caption_surface = font.render(caption, True, (255, 255, 255))
-        screen.blit(caption_surface, (x + 5, y + thumb_height - 25))
-
-def fit_image_to_screen(image_surface, screen_width, screen_height):
-    image_width, image_height = image_surface.get_size()
-    scale = min(screen_width / image_width, screen_height / image_height)
-    new_size = (int(image_width * scale), int(image_height * scale))
-    return pygame.transform.scale(image_surface, new_size)
-
-screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-
+        caption_rect = caption_surface.get_rect(center=(x + thumb_width // 2, y + thumb_height - 15))
+        screen.blit(caption_surface, caption_rect)
 
 def animate_transition(images, captions):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("Portfolio Animation")
-    font = pygame.font.Font(None, 36)
+    font = pygame.font.Font("arial.ttf", 36)
     
     current_index = 0
     grid_mode = True
