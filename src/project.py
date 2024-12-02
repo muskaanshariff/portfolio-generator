@@ -23,32 +23,6 @@ def save_settings(settings):
     with open("settings.json", "w") as f:
         json.dump(settings, f)
 
-def animate_fade_in(screen, image):
-    image_surface = pygame.image.load(image.filename).convert()
-    image_surface = pygame.transform.scale(image_surface, (900, 500))
-    
-    alpha = 0
-    while alpha < 255:
-        image_surface.set_alpha(alpha)
-        screen.fill((0, 0, 0))
-        screen.blit(image_surface, (0, 50))
-        pygame.display.update()
-        alpha += 5
-        pygame.time.delay(20)
-
-def animate_fade_out(screen, image):
-    image_surface = pygame.image.load(image.filename).convert()
-    image_surface = pygame.transform.scale(image_surface, (900, 500))
-    
-    alpha = 255
-    while alpha > 0:
-        image_surface.set_alpha(alpha)
-        screen.fill((0, 0, 0))
-        screen.blit(image_surface, (0, 50))
-        pygame.display.update()
-        alpha -= 5
-        pygame.time.delay(20)
-
 def display_grid(screen, images, captions, screen_width, screen_height, settings):
     screen.fill((settings['background_color']))
     cols, rows = settings['grid_layout']
@@ -75,6 +49,68 @@ def display_grid(screen, images, captions, screen_width, screen_height, settings
         caption_surface = font.render(caption, True, (255, 255, 255))
         caption_rect = caption_surface.get_rect(center=(x + thumb_width // 2, y + thumb_height - 15))
         screen.blit(caption_surface, caption_rect)
+
+def animate_fade_in(screen, image):
+    image_surface = pygame.image.load(image.filename).convert()
+    image_surface = pygame.transform.scale(image_surface, (900, 500))
+    
+    alpha = 0
+    while alpha < 255:
+        image_surface.set_alpha(alpha)
+        screen.fill((0, 0, 0))
+        screen.blit(image_surface, (0, 50))
+        pygame.display.update()
+        alpha += 5
+        pygame.time.delay(20)
+
+def animate_fade_out(screen, image):
+    image_surface = pygame.image.load(image.filename).convert()
+    image_surface = pygame.transform.scale(image_surface, (900, 500))
+    
+    alpha = 255
+    while alpha > 0:
+        image_surface.set_alpha(alpha)
+        screen.fill((0, 0, 0))
+        screen.blit(image_surface, (0, 50))
+        pygame.display.update()
+        alpha -= 5
+        pygame.time.delay(20)
+
+def center_image(image_surface, screen_width, screen_height):
+    image_rect = image_surface.get_rect(center=(screen_width // 2, screen_height // 2))
+    return image_rect.topleft
+
+def scale_to_fit(image_surface, screen_width, screen_height):
+    image_width, image_height = image_surface.get_size()
+    aspect_ratio = image_width / image_height
+
+    if screen_width / screen_height > aspect_ratio:
+        new_height = screen_height
+        new_width = int(new_height * aspect_ratio)
+    else:
+        new_width = screen_width
+        new_height = int(new_width / aspect_ratio)
+
+    return pygame.transform.scale(image_surface, (new_width, new_height))
+
+def load_images(directory):
+    images = []
+    captions = []
+    if not os.path.isdir(directory):
+        print("Invalid directory. Please provide a valid folder path.")
+        return images, captions
+
+    for filename in os.listdir(directory):
+        if filename.endswith((".png", ".jpg", ".jpeg")):
+            try:
+                image_path = os.path.join(directory, filename)
+                images.append(Image.open(image_path))
+                captions.append(f"Title: {os.path.splitext(filename)[0]}")
+            except Exception as e:
+                print(f"Error loading {filename}: {e}")
+        else:
+            print(f"Skipped unsupported file: {filename}")
+    return images, captions
 
 def animate_transition(images, captions):
     pygame.init()
@@ -146,44 +182,6 @@ def animate_transition(images, captions):
 
         pygame.display.update()
     pygame.quit()
-
-def center_image(image_surface, screen_width, screen_height):
-    image_rect = image_surface.get_rect(center=(screen_width // 2, screen_height // 2))
-    return image_rect.topleft
-
-def scale_to_fit(image_surface, screen_width, screen_height):
-    image_width, image_height = image_surface.get_size()
-    aspect_ratio = image_width / image_height
-
-    if screen_width / screen_height > aspect_ratio:
-        new_height = screen_height
-        new_width = int(new_height * aspect_ratio)
-    else:
-        new_width = screen_width
-        new_height = int(new_width / aspect_ratio)
-
-    return pygame.transform.scale(image_surface, (new_width, new_height))
-
-def load_images(directory):
-    images = []
-    captions = []
-    if not os.path.isdir(directory):
-        print("Invalid directory. Please provide a valid folder path.")
-        return images, captions
-
-    for filename in os.listdir(directory):
-        if filename.endswith((".png", ".jpg", ".jpeg")):
-            try:
-                image_path = os.path.join(directory, filename)
-                images.append(Image.open(image_path))
-                captions.append(f"Title: {os.path.splitext(filename)[0]}")
-            except Exception as e:
-                print(f"Error loading {filename}: {e}")
-        else:
-            print(f"Skipped unsupported file: {filename}")
-    return images, captions
-
-from reportlab.lib.pagesizes import letter
 
 def save_portfolio_as_pdf(images, captions):
     c = canvas.Canvas("portfolio.pdf", pagesize=letter)
