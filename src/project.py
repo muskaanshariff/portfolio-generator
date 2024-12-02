@@ -32,6 +32,14 @@ def load_theme(theme_name):
 def drag_and_drop_upload(images, captions):
     print("Drag and drop image uploader placeholder!")
 
+def export_to_pdf(images):
+    c = canvas.Canvas("portfolio.pdf")
+    for img in images:
+        c.drawImage(img.filename, 100, 500, width=400, height=300)
+        c.showPage()
+    c.save()
+    print("Exported portfolio as PDF!")
+
 def animate_fade_in(screen, image):
     image_surface = pygame.image.load(image.filename).convert()
     image_surface = pygame.transform.scale(image_surface, (800, 500))
