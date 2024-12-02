@@ -58,6 +58,7 @@ def display_grid(screen, images, captions):
 def animate_transition(images, captions):
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
+    screen_width, screen_height = screen.get_size()
     pygame.display.set_caption("Portfolio Animation")
     font = pygame.font.Font("arial.ttf", 36)
     
@@ -68,20 +69,21 @@ def animate_transition(images, captions):
 
     while running:
         if grid_mode:
-            display_grid(screen, images, captions)
+            display_grid(screen, images, captions, screen_width, screen_height)
             fade_in_done = False
         else:
             if not fade_in_done:
-                animate_fade_in(screen, images[current_index])
+                animate_fade_in(screen, images[current_index], screen_width, screen_height)
                 fade_in_done = True
             else:
                 image_surface = pygame.image.load(images[current_index].filename).convert()
-                image_surface = pygame.transform.scale(image_surface, (800, 500))
+                image_surface = scale_to_fit(image_surface, screen_width, screen_height)
                 screen.fill((0, 0, 0))
-                screen.blit(image_surface, (0, 50))
+                screen.blit(image_surface, center_image(image_surface, screen_width, screen_height))
                 
                 caption_surface = font.render(captions[current_index], True, (255, 255, 255))
-                screen.blit(caption_surface, (20, 550))
+                caption_rect = caption_surface.get_rect(center=(screen_width // 2, screen_height - 50))
+                screen.blit(caption_surface, caption_rect)
 
         pygame.display.update()
 
@@ -123,6 +125,9 @@ def animate_transition(images, captions):
         pygame.display.update()
     pygame.quit()
 
+def center_image(image_surface, screen_width, screen_height):
+    image_rect = image_surface.get_rect(center=(screen_width // 2, screen_height // 2))
+    return image_rect.topleft
 
 def load_images(directory):
     images = []
