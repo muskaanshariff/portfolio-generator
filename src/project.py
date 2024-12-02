@@ -47,7 +47,7 @@ def export_to_html(images):
 
 def animate_fade_in(screen, image):
     image_surface = pygame.image.load(image.filename).convert()
-    image_surface = pygame.transform.scale(image_surface, (800, 500))
+    image_surface = pygame.transform.scale(image_surface, (900, 500))
     
     alpha = 0
     while alpha < 255:
@@ -60,7 +60,7 @@ def animate_fade_in(screen, image):
 
 def animate_fade_out(screen, image):
     image_surface = pygame.image.load(image.filename).convert()
-    image_surface = pygame.transform.scale(image_surface, (800, 500))
+    image_surface = pygame.transform.scale(image_surface, (900, 500))
     
     alpha = 255
     while alpha > 0:
@@ -100,7 +100,7 @@ def display_grid(screen, images, captions, screen_width, screen_height, settings
 
 def animate_transition(images, captions):
     pygame.init()
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((900, 600))
     screen_width, screen_height = screen.get_size()
     pygame.display.set_caption("Portfolio Animation")
     font = pygame.font.SysFont("Arial", 36)
