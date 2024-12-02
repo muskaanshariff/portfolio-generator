@@ -20,6 +20,13 @@ def save_settings(settings):
     with open("settings.json", "w") as f:
         json.dump(settings, f)
 
+def load_theme(theme_name):
+    themes = {
+        "dark": {"background": (0, 0, 0), "text_color": (255, 255, 255)},
+        "light": {"background": (255, 255, 255), "text_color": (0, 0, 0)}
+    }
+    return themes.get(theme_name, themes["dark"])
+
 def animate_fade_in(screen, image):
     image_surface = pygame.image.load(image.filename).convert()
     image_surface = pygame.transform.scale(image_surface, (800, 500))
