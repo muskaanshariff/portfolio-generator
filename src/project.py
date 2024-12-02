@@ -29,9 +29,6 @@ def load_theme(theme_name):
         }
     return themes.get(theme_name, themes["dark"])
 
-def drag_and_drop_upload(images, captions):
-    print("Drag and drop image uploader placeholder!")
-
 def export_to_pdf(images):
     c = canvas.Canvas("portfolio.pdf")
     for img in images:
