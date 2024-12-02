@@ -27,6 +27,9 @@ def load_theme(theme_name):
     }
     return themes.get(theme_name, themes["dark"])
 
+def drag_and_drop_upload(images, captions):
+    print("Drag and drop image uploader placeholder!")
+
 def animate_fade_in(screen, image):
     image_surface = pygame.image.load(image.filename).convert()
     image_surface = pygame.transform.scale(image_surface, (800, 500))
@@ -53,7 +56,7 @@ def animate_fade_out(screen, image):
         alpha -= 5
         pygame.time.delay(20)
 
-def display_grid(screen, images, captions, screen_width, screen_height):
+def display_grid(screen, images, captions, screen_width, screen_height, settings):
     screen.fill((0, 0, 0))
     cols, rows = 3, 2
     margin = 10
