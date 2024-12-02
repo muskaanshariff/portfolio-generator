@@ -23,8 +23,9 @@ def save_settings(settings):
 def load_theme(theme_name):
     themes = {
         "dark": {"background": (0, 0, 0), "text_color": (255, 255, 255)},
-        "light": {"background": (255, 255, 255), "text_color": (0, 0, 0)}
-    }
+        "light": {"background": (255, 255, 255), "text_color": (0, 0, 0)},
+        "minimal": {"background": (240, 240, 240), "text_color": (50, 50, 50)},
+        }
     return themes.get(theme_name, themes["dark"])
 
 def drag_and_drop_upload(images, captions):
