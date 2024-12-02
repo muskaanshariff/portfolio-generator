@@ -1,6 +1,20 @@
 import os
 from PIL import Image
 import pygame
+import json
+
+def load_settings():
+    default_settings = {
+        "transition_speed": 20,
+        "grid_layout": [3, 2],
+        "background_color": (0, 0, 0),
+        "theme": "dark"
+    }
+    if os.path.exists("settings.json"):
+        with open("settings.json", "r") as f:
+            return json.load(f)
+    else:
+        return default_settings
 
 def animate_fade_in(screen, image):
     image_surface = pygame.image.load(image.filename).convert()
