@@ -108,6 +108,7 @@ def animate_transition(images, captions):
     pygame.display.set_caption("Portfolio Animation")
     font = pygame.font.SysFont("Arial", 36)
     
+    settings = load_settings()
     current_index = 0
     grid_mode = True
     fade_in_done = False
@@ -115,7 +116,7 @@ def animate_transition(images, captions):
 
     while running:
         if grid_mode:
-            display_grid(screen, images, captions, screen_width, screen_height)
+            display_grid(screen, images, captions, screen_width, screen_height, settings)
             fade_in_done = False
         else:
             if not fade_in_done:
@@ -152,7 +153,7 @@ def animate_transition(images, captions):
             elif event.type == pygame.MOUSEBUTTONDOWN and grid_mode:
                 mouse_x, mouse_y = event.pos
                 
-                cols, rows = 3, 2
+                cols, rows = settings['grid_layout']
                 margin = 10
                 thumb_width = (screen_width - (cols + 1) * margin) // cols
                 thumb_height = (screen_height - (rows + 1) * margin) // rows
