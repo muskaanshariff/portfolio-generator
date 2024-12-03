@@ -29,7 +29,7 @@ def display_grid(screen, images, captions, screen_width, screen_height, settings
     margin = 10
     thumb_width = (screen_width - (cols + 1) * margin) // cols
     thumb_height = (screen_height - (rows + 1) * margin) // rows
-    font = pygame.font.SysFont("Arial", 24)
+    font = pygame.font.SysFont("Helvetica", 24)
 
     for i, (image, caption) in enumerate(zip(images, captions)):
         col = i % cols
@@ -112,20 +112,20 @@ def load_images(directory):
             print(f"Skipped unsupported file: {filename}")
     return images, captions
 def show_start_screen(screen, screen_width, screen_height):
-    font = pygame.font.SysFont("Arial", 48)
-    welcome_text = font.render("View Portfolio!", True, (255, 255, 255))
-    loading_text = font.render("Click Anywhere to Start", True, (255, 255, 255))
+    font = pygame.font.SysFont("Helvetica-Bold", 50)
+    welcome_text = font.render("View Portfolio!", True, (255, 79, 55))
+    loading_text = font.render("Click Anywhere to Start", True, (255, 79, 55))
     
     welcome_rect = welcome_text.get_rect(center=(screen_width // 2, screen_height // 3))
     loading_rect = loading_text.get_rect(center=(screen_width // 2, screen_height // 2))
     
     alpha = 0
     image_surface = pygame.Surface((screen_width, screen_height))
-    image_surface.fill((0, 0, 0))  
+    image_surface.fill((135, 193, 255)) 
     
     while alpha < 255:
         image_surface.set_alpha(alpha)
-        screen.fill((0, 0, 0))  
+        screen.fill((135, 193, 255))  
         screen.blit(image_surface, (0, 0))
         screen.blit(welcome_text, welcome_rect)
         screen.blit(loading_text, loading_rect)
@@ -142,7 +142,7 @@ def show_start_screen(screen, screen_width, screen_height):
             elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN:
                 waiting = False
 
-    screen.fill((0, 0, 255)) 
+    screen.fill((135, 193, 255)) 
     pygame.display.update()
 
 def animate_transition(images, captions):
@@ -150,7 +150,7 @@ def animate_transition(images, captions):
     screen = pygame.display.set_mode((900, 600))
     screen_width, screen_height = screen.get_size()
     pygame.display.set_caption("Portfolio Animation")
-    font = pygame.font.SysFont("Arial", 36)
+    font = pygame.font.SysFont("Helvetica", 36)
     
     settings = load_settings()
     current_index = 0
