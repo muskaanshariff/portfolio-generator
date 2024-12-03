@@ -142,6 +142,16 @@ def show_start_screen(screen, screen_width, screen_height):
             elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN:
                 waiting = False
 
+    while alpha > 0:
+        image_surface.set_alpha(alpha)
+        screen.fill((135, 193, 255)) 
+        screen.blit(image_surface, (0, 0))
+        screen.blit(welcome_text, welcome_rect)
+        screen.blit(loading_text, loading_rect)
+        pygame.display.update()
+        alpha -= 5
+        pygame.time.delay(30)
+
     screen.fill((135, 193, 255)) 
     pygame.display.update()
 
