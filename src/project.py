@@ -114,26 +114,36 @@ def load_images(directory):
 def show_start_screen(screen, screen_width, screen_height):
     font = pygame.font.SysFont("Arial", 48)
     welcome_text = font.render("View Portfolio!", True, (255, 255, 255))
-    loading_text = font.render("Starting Animation...", True, (255, 255, 255))
+    loading_text = font.render("Click Anywhere to Start", True, (255, 255, 255))
     
     welcome_rect = welcome_text.get_rect(center=(screen_width // 2, screen_height // 3))
     loading_rect = loading_text.get_rect(center=(screen_width // 2, screen_height // 2))
     
     alpha = 0
     image_surface = pygame.Surface((screen_width, screen_height))
-    image_surface.fill((0, 0, 0))
+    image_surface.fill((0, 0, 0))  
     
     while alpha < 255:
         image_surface.set_alpha(alpha)
-        screen.fill((0, 0, 0))
+        screen.fill((0, 0, 0))  
         screen.blit(image_surface, (0, 0))
         screen.blit(welcome_text, welcome_rect)
         screen.blit(loading_text, loading_rect)
         pygame.display.update()
         alpha += 5
-        pygame.time.delay(30)  
+        pygame.time.delay(30) 
+    
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit() 
+            elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN:
+                waiting = False
 
-    pygame.time.delay(1000)  
+    screen.fill((0, 0, 255)) 
+    pygame.display.update()
 
 def animate_transition(images, captions):
     pygame.init()
