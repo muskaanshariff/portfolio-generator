@@ -151,6 +151,8 @@ def show_start_screen(screen, screen_width, screen_height):
         pygame.display.update()
         alpha += 5
         pygame.time.delay(30) 
+
+    stars = [(random.randint(0, screen_width), random.randint(0, screen_height)) for _ in range(50)]
     
     waiting = True
     while waiting:
@@ -160,6 +162,14 @@ def show_start_screen(screen, screen_width, screen_height):
                 exit() 
             elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN:
                 waiting = False
+
+        update_stars(stars, screen_width, screen_height)
+        draw_stars(screen, stars)
+        screen.blit(welcome_text, welcome_rect)
+        screen.blit(loading_text, loading_rect)
+        pygame.display.update()
+        pygame.time.delay(30)
+
 
     while alpha > 0:
         image_surface.set_alpha(alpha)
