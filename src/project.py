@@ -111,6 +111,29 @@ def load_images(directory):
         else:
             print(f"Skipped unsupported file: {filename}")
     return images, captions
+def show_start_screen(screen, screen_width, screen_height):
+    font = pygame.font.SysFont("Arial", 48)
+    welcome_text = font.render("View Portfolio!", True, (255, 255, 255))
+    loading_text = font.render("Starting Animation...", True, (255, 255, 255))
+    
+    welcome_rect = welcome_text.get_rect(center=(screen_width // 2, screen_height // 3))
+    loading_rect = loading_text.get_rect(center=(screen_width // 2, screen_height // 2))
+    
+    alpha = 0
+    image_surface = pygame.Surface((screen_width, screen_height))
+    image_surface.fill((0, 0, 0))
+    
+    while alpha < 255:
+        image_surface.set_alpha(alpha)
+        screen.fill((0, 0, 0))
+        screen.blit(image_surface, (0, 0))
+        screen.blit(welcome_text, welcome_rect)
+        screen.blit(loading_text, loading_rect)
+        pygame.display.update()
+        alpha += 5
+        pygame.time.delay(30)  
+
+    pygame.time.delay(1000)  
 
 def animate_transition(images, captions):
     pygame.init()
@@ -124,6 +147,8 @@ def animate_transition(images, captions):
     grid_mode = True
     fade_in_done = False
     running = True
+
+    show_start_screen(screen, screen_width, screen_height)
 
     while running:
         if grid_mode:
