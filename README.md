@@ -1,7 +1,7 @@
 # Portfolio Generator
 
 ## Demo
-Demo Video: <url>
+Demo Video: <https://youtu.be/H5qiUsyhGj0>
 
 ## GitHub Repository
 GitHub Repository: <(https://github.com/muskaanshariff/portfolio-generator)>
