@@ -289,7 +289,7 @@ def save_portfolio_as_pdf(images, captions):
         c.showPage()
     
     c.save()
-    print("Portfolio saved as portfolio.pdf")
+    print("Portfolio has been saved as 'portfolio.pdf'")
 
 def main():
     print("Welcome to the Animated Portfolio Generator!")
