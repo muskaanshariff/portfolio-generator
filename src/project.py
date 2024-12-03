@@ -111,6 +111,15 @@ def load_images(directory):
         else:
             print(f"Skipped unsupported file: {filename}")
     return images, captions
+
+def draw_gradient(screen, width, height, start_color, end_color):
+    for i in range(height):
+        color = [
+            start_color[j] + (end_color[j] - start_color[j]) * i // height
+            for j in range(3)
+        ]
+        pygame.draw.line(screen, color, (0, i), (width, i))
+
 def show_start_screen(screen, screen_width, screen_height):
     font = pygame.font.SysFont("Helvetica-Bold", 50)
     welcome_text = font.render("View Portfolio!", True, (255, 79, 55))
@@ -125,7 +134,7 @@ def show_start_screen(screen, screen_width, screen_height):
     
     while alpha < 255:
         image_surface.set_alpha(alpha)
-        screen.fill((135, 193, 255))  
+        draw_gradient(screen, screen_width, screen_height, (0, 0, 128), (0, 0, 255))  
         screen.blit(image_surface, (0, 0))
         screen.blit(welcome_text, welcome_rect)
         screen.blit(loading_text, loading_rect)
@@ -144,7 +153,7 @@ def show_start_screen(screen, screen_width, screen_height):
 
     while alpha > 0:
         image_surface.set_alpha(alpha)
-        screen.fill((135, 193, 255)) 
+        draw_gradient(screen, screen_width, screen_height, (0, 0, 128), (0, 0, 255))
         screen.blit(image_surface, (0, 0))
         screen.blit(welcome_text, welcome_rect)
         screen.blit(loading_text, loading_rect)
@@ -152,8 +161,8 @@ def show_start_screen(screen, screen_width, screen_height):
         alpha -= 5
         pygame.time.delay(30)
 
-    screen.fill((135, 193, 255)) 
-    pygame.display.update()
+    draw_gradient(screen, screen_width, screen_height, (0, 0, 128), (0, 0, 255))
+    pygame.display.update()   
 
 def animate_transition(images, captions):
     pygame.init()
