@@ -3,6 +3,7 @@ import threading
 from PIL import Image
 import pygame
 import json
+import random
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 
@@ -119,6 +120,15 @@ def draw_gradient(screen, width, height, start_color, end_color):
             for j in range(3)
         ]
         pygame.draw.line(screen, color, (0, i), (width, i))
+
+def draw_stars(screen, stars):
+    for star in stars:
+        pygame.draw.circle(screen, (255, 255, 255), star, 2)
+
+def update_stars(stars, screen_width, screen_height):
+    for i in range(len(stars)):
+        stars[i] = (stars[i][0], (stars[i][1] + 1) % screen_height)
+
 
 def show_start_screen(screen, screen_width, screen_height):
     font = pygame.font.SysFont("Helvetica-Bold", 50)
